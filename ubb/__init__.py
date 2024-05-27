@@ -19,5 +19,5 @@ STRING_SESSION = os.getenv('STRING_SESSION', CONFIG['string_session'])
 Ubot = TelegramClient(StringSession(STRING_SESSION),
                       API_ID,
                       API_HASH,
-                      auto_reconnect=False,
+                      auto_reconnect=True,
                       lang_code='en')
