@@ -13,7 +13,7 @@ async def srbin(event):
         BIN = reply_msg.message
     try:
         _BIN = re.sub(r'[^0-9]', '', BIN)
-        _res = await http.get(f'http://binchk-api.vercel.app/bin={_BIN}')
+        _res = await http.get(f'https://api.freebinchecker.com/bin={_BIN}')
         res = _res.json()
         msg = f'''
 BIN: `{_BIN}`
