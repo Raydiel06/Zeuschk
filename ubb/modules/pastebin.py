@@ -23,8 +23,8 @@ async def paste_bin(event):
     elif r.message:
         content = str(r.message)
     try:
-        res = await http.post('https://hastebin.skyra.pw/documents', pdata=content)
-        msg = f'**Pasted**: https://hastebin.skyra.pw/raw/{res.json()["key"]}'
+        res = await http.post('https://pastebin.com/api/api_post.php', pdata=content)
+        msg = f'**Pasted**: https://pastebin.com/api/raw/{res.json()["key"]}'
         await event.edit(msg)
     except Exception as e:
         msg = f"**Failed to paste**: `{e}`"
