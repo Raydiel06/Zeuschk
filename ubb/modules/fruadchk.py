@@ -7,7 +7,7 @@ from ubb import Ubot
 async def ip_fruad(event):
     IP = event.message.message[len('.ip '):]
     try:
-      res = await http.get(f'https://fraudchkip.herokuapp.com/{IP}')
+      res = await http.get(f'https://api.seon.io/SeonRestService/fraud-api/v2/{IP}')
       result = res.json()
       msg = f'''
       IP: {IP}
